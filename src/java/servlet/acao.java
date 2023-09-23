@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -103,7 +104,6 @@ public class acao extends HttpServlet {
         String a = request.getParameter("a");
 
         if (a.equals("entrar")) {
-
             String nome = request.getParameter("nome");
             String senha = request.getParameter("senha");
 
@@ -112,11 +112,20 @@ public class acao extends HttpServlet {
             us.setSenha(senha);
 
             if (new UsuarioDAO().autenticar(us)) {
-//            response.sendRedirect("sucesso.jsp");
+                HttpSession sessao = request.getSession();
+                sessao.setAttribute("user", us);
+
                 encaminharPagina("menu.jsp", request, response);
             } else {
-                encaminharPagina("erroUsuario.jsp", request, response);
+                encaminharPagina("erro.jsp", request, response);
             }
+        }
+
+        if (a.equals("logout")) {
+            HttpSession sessao = request.getSession();
+            sessao.invalidate();
+
+            response.sendRedirect("login.jsp");
         }
 
         if (a.equals("salvarPessoa")) {
@@ -150,6 +159,7 @@ public class acao extends HttpServlet {
             }
 
         }
+
     }
 
     /**

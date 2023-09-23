@@ -11,7 +11,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>INDEX</title>
     </head>
-    <%@include file="login.jsp" %>
+    <% 
+        response.sendRedirect("login.jsp");
+    %>
     <body>
     </body>
 </html>

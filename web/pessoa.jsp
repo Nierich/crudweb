@@ -14,9 +14,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>CADASTRO PESSOA</title>
     </head>
-    
-    <%@include file="menu.jsp" %>
-    
+
+
+
     <%
         Pessoa p = (Pessoa) request.getAttribute("pessoa");
 
@@ -24,14 +24,17 @@
             p = new Pessoa();
         }
     %>
-    
+
     <body>
-        <h1>Cadastro De Pessoas</h1>
-        
+
+        <%@include file="menu.jsp" %><br>
+                                        
+        <h1>Cadastro de Pessoas</h1>
+
         <form method="post" action="acao?a=salvarPessoa">
             <label for="id">ID</label><br>
             <input type="text" id="id" name="id" readonly="" value="<%= p.getId() %>"><br>
-            
+
             <label for="nome">Nome:</label><br>
             <input type="text" id="nome" name="nome" value="<%= p.getNome() %>"><br>
 
@@ -40,16 +43,16 @@
 
             <label for="telefone">Telefone:</label><br>
             <input type="text" id="telefone" name="telefone" value="<%= p.getTelefone() %>"><br>
-            
+
             <label for="data_nascimento">Data de nascimento:</label><br>
             <input type="text" id="data_nascimento" name="data_nascimento" value="<%= p.getData_nascimento() %>"><br>
-            
-            
-            <br> <br>
-            <input type="submit" name="salvar" value="Salvar">
-            <input type="Reset" name="reset" value="Limpar">
+
+
+            <br>
+            <input type="submit" name="salvar" value="Salvar" class="btn btn-primary">
+            <input type="Reset" name="reset" value="Limpar" class="btn btn-danger">
         </form>
-        
+
         <h3>Listagem das categorias</h3>
 
         <%            ArrayList<Pessoa> pess = new PessoaDAO().consultar();
@@ -61,10 +64,10 @@
             <th>Email</th>
             <th>Telefone</th>
             <th>Data de nascimento</th>
-            
-                <%
-                    for (int i = 0; i < pess.size(); i++) {
-                %>
+
+            <%
+                for (int i = 0; i < pess.size(); i++) {
+            %>
             <tr>
                 <td><%= pess.get(i).getId()%></td>
                 <td><%= pess.get(i).getNome() %></td>
